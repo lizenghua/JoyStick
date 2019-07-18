@@ -3,7 +3,7 @@
  * @ Author: lzh
  * @ Date: 2019-07-17 16:31:55
  * @ Last Modified by: lzh
- * @ Last Modified time: 2019-07-18 16:13:14
+ * @ Last Modified time: 2019-07-18 17:33:26
  * @ copyright: youai
  */
 
@@ -39,8 +39,8 @@ export class JoyStick extends ui.joystickViewUI {
     public angle: number = -1;
     /**摇杆的弧度 */
     public radians: number = -1;
-    
-    
+
+
     constructor(touchSp: Laya.Sprite) {
         super();
         this._touchRect = touchSp;
@@ -75,23 +75,22 @@ export class JoyStick extends ui.joystickViewUI {
         this.joystickPoint.pos(this._originPiontX, this._originPiontY);
         this._touchRect.on(Event.MOUSE_MOVE, this, this._onMouseMove);
     }
-    
+
     /**
      * 鼠标移动事件回调
      * @param evt 
      */
     private _onMouseMove(evt: Event): void {
-        //解决在设备上拖动到屏幕外面无法触发MOUSE_OUT和MOUSE_UP事件，所以在点击的时候判断摇杆是否存在
+        //解决在设备上拖动到屏幕外面无法触发MOUSE_OUT和MOUSE_UP事件
         if (evt.touchId != this._curTouchId) return;
-        if(!this.visible){
+        if (!this.visible) {
             // 当滑动超过设定的距离时才显示操纵杆
             let moveDis: number = this.distanceSquare(this._startStageX, this._startStageY, evt.stageX, evt.stageY);
-            console.log(moveDis);
-            if(moveDis > this._MaxMoveDistance * this._MaxMoveDistance){
+            if (moveDis > this._MaxMoveDistance * this._MaxMoveDistance) {
                 this.visible = true;
                 this._isTouchMove = true;
             }
-        }else{
+        } else {
             //将移动时的鼠标屏幕坐标转化为摇杆局部坐标
             let locationPos: Laya.Point = this.globalToLocal(new Laya.Point(Laya.stage.mouseX, Laya.stage.mouseY), false);
             //更新摇杆控制点位置
@@ -100,8 +99,8 @@ export class JoyStick extends ui.joystickViewUI {
             this._deltaX = locationPos.x - this._originPiont.x;
             this._deltaY = locationPos.y - this._originPiont.y;
             //计算控制点在摇杆中的角度
-            var dx: number = this._deltaX * this._deltaX;
-            var dy: number = this._deltaY * this._deltaY;
+            let dx: number = this._deltaX * this._deltaX;
+            let dy: number = this._deltaY * this._deltaY;
             this.angle = Math.atan2(this._deltaX, this._deltaY) * 180 / Math.PI;
             if (this.angle < 0) this.angle += 360;
             //对角度取整
@@ -109,10 +108,10 @@ export class JoyStick extends ui.joystickViewUI {
             //计算控制点在摇杆中的弧度
             this.radians = Math.PI / 180 * this.angle;
             //强制控制点与中心距离
-            if (dx + dy >=  this._joystickRadius * this._joystickRadius) {
+            if (dx + dy >= this._joystickRadius * this._joystickRadius) {
                 //控制点在半径的位置（根据弧度变化）
-                var x: number = Math.floor(Math.sin(this.radians) * this._joystickRadius + this._originPiont.x);
-                var y: number = Math.floor(Math.cos(this.radians) * this._joystickRadius + this._originPiont.y);
+                let x: number = Math.floor(Math.sin(this.radians) * this._joystickRadius + this._originPiont.x);
+                let y: number = Math.floor(Math.cos(this.radians) * this._joystickRadius + this._originPiont.y);
                 this.joystickPoint.pos(x, y);
             }
             else {
