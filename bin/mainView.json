@@ -1,0 +1,1 @@
+{"type":"Scene","props":{"width":720,"height":1280},"compId":2,"child":[{"type":"Sprite","props":{"y":285,"x":382,"texture":"tankke.png"},"compId":3}],"loadList":["tankke.png"],"loadList3D":[]}

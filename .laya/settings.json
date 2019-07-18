@@ -1,0 +1,27 @@
+{
+    "autoHeader": {
+        "format": {
+            "startWith": "/**",
+            "middleWith": "*",
+            "endWith": "*/",
+            "headerPrefix": "@",
+        },
+        "header": {
+            "Description": " ",
+            "Author": "lzh",
+            "Date": {
+                "type": "createTime",
+                "format": "YYYY-MM-DD HH:mm:ss",
+            },
+            "Last Modified by": {
+                "type": "modifier",
+                "value": "lzh",
+            },
+            "Last Modified time": {
+                "type": "modifyTime",
+                "format": "YYYY-MM-DD HH:mm:ss"
+            },
+            "copyright": "youai"
+        }
+    }
+}
